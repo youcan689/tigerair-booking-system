@@ -1,0 +1,38 @@
+name: Tigerair CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📦 Checkout code
+      uses: actions/checkout@v3
+
+    - name: ⚙️ Setup Node.js Environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 🚀 Install Backend Dependencies
+      working-directory: ./backend
+      run: npm install
+
+    - name: 🎨 Install Web Dependencies
+      working-directory: ./frontend-web
+      run: npm install
+
+    - name: 🏗️ Build Vue.js Frontend
+      working-directory: ./frontend-web
+      run: npm run build
+
+    - name: 🧪 Run Unit Tests
+      run: echo "在這裡跑 npm test 或是 JUnit 讓專案具備完整 CI 保護網"
+
+    - name: 🚢 Deploy to Production (Simulation)
+      run: echo "所有專案建置與測試完畢，這一步會把檔案送往 Linux 伺服器部署"

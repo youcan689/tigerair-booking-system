@@ -1,0 +1,14 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 30
+      arrivalRate: 20
+      name: "30秒中等流量"
+    - duration: 30
+      arrivalRate: 100
+      name: "30秒高峰流量 (搶票期)"
+scenarios:
+  - name: "查詢航班"
+    flow:
+      - get:
+          url: "/api/flights"
